@@ -1,0 +1,33 @@
+﻿<Window x:Class="TcpClientApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="TCP Client" Height="300" Width="400">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Grid Margin="0,0,0,5">
+            <TextBox x:Name="UsernameTextBox"
+                     GotFocus="UsernameTextBox_GotFocus"
+                     LostFocus="UsernameTextBox_LostFocus"/>
+            <TextBlock x:Name="UsernamePlaceholder"
+                       Text="Enter username"
+                       Foreground="Gray"
+                       Margin="5,2,0,0"
+                       IsHitTestVisible="False"
+                       VerticalAlignment="Top"
+                       Padding="2"
+                       Visibility="Visible"/>
+        </Grid>
+
+        <ListBox x:Name="MessagesListBox" Grid.Row="1" Margin="0,0,0,10"/>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal">
+            <TextBox x:Name="MessageTextBox" Width="250" Margin="0,0,10,0"/>
+            <Button Content="Send" Width="100" Click="SendButton_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>
