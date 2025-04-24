@@ -29,28 +29,24 @@ namespace TcpServerApp
             {
                 serverSocket.Bind(endPoint);
                 serverSocket.Listen();
-                AppendLog($"Listening on {endPoint.Address}:{endPoint.Port}");
 
                 while (true)
                 {
                     Socket clientSocket = serverSocket.Accept();
-                    AppendLog($"Client connected: {clientSocket.RemoteEndPoint}");
 
                     while (true)
                     {
                         try
                         {
                             int bytesRead = clientSocket.Receive(buffer);
-                            AppendLog($"Bytes read: {bytesRead}");  // Добавлено логирование
 
                             if (bytesRead == 0)
                             {
-                                AppendLog("Client disconnected.");
                                 break;
                             }
 
                             string message = Encoding.UTF8.GetString(buffer, 0, bytesRead);
-                            AppendLog($"Received: {message}");
+                            Console.WriteLine($"Received: {message}");
 
                             string response = $"Server received: {message}";
                             byte[] responseBytes = Encoding.UTF8.GetBytes(response);
@@ -58,7 +54,7 @@ namespace TcpServerApp
                         }
                         catch (Exception ex)
                         {
-                            AppendLog($"Receive error: {ex.Message}");
+                            Console.WriteLine($"Receive error: {ex.Message}");
                             break;
                         }
                     }
@@ -73,18 +69,8 @@ namespace TcpServerApp
             }
             catch (Exception ex)
             {
-                AppendLog($"Server error: {ex.Message}");
+                Console.WriteLine($"Server error: {ex.Message}");
             }
-        }
-
-
-        private void AppendLog(string message)
-        {
-            Dispatcher.Invoke(() =>
-            {
-                LogTextBox.AppendText($"{message}\n");
-                LogTextBox.ScrollToEnd();
-            });
         }
     }
 }
